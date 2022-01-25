@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'computer_vision.apps.ComputerVisionConfig'
+    'computer_vision.apps.ComputerVisionConfig',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -115,6 +119,13 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+# cloudinary config
+cloudinary.config(
+    cloud_name = "mouss",
+    api_key = "589242817661252",
+    api_secret = "PhknsOjsQCX3nyu4a5nS6otMH8I"
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

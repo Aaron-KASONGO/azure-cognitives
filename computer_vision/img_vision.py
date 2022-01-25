@@ -1,46 +1,17 @@
-from dotenv import load_dotenv
 import os
 from array import array
 from PIL import Image, ImageDraw
 import sys
 import time
-from matplotlib import pyplot as plt
-import numpy as np
+from PIL import Image
+import urllib
 
 # Import namespaces
-from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
 from msrest.authentication import CognitiveServicesCredentials
 
 
-def main():
-    global cv_client
-
-    try:
-        # Get Configuration Settings
-        load_dotenv()
-        cog_endpoint = os.getenv('COG_SERVICE_ENDPOINT')
-        cog_key = os.getenv('COG_SERVICE_KEY')
-
-        # Get image
-        image_file = 'images/street.jpg'
-        if len(sys.argv) > 1:
-            image_file = sys.argv[1]
-
-        # Authenticate Computer Vision client
-        credential = CognitiveServicesCredentials(cog_key) 
-        cv_client = ComputerVisionClient(cog_endpoint, credential)
-
-        # Analyze image
-        AnalyzeImage(image_file)
-
-        # Generate thumbnail
-        GetThumbnail(image_file)
-
-    except Exception as ex:
-        print(ex)
-
-def AnalyzeImage(image_file):
+def AnalyzeImage(image_file, cv_client):
     print('Analyzing', image_file)
 
     # Specify features to be retrieved
@@ -52,13 +23,17 @@ def AnalyzeImage(image_file):
                 VisualFeatureTypes.adult]
     
     
+    # module_dir = os.path.dirname(__file__)  # get current directory
+    # file_path = os.path.join(module_dir, 'street.jpg')
     # Get image analysis
-    with open(image_file, mode="rb") as image_data:
-        analysis = cv_client.analyze_image_in_stream(image_data , features)
+    #with open(image_file, mode="rb") as image_data:
+    image = urllib.request.urlopen(image_file.img.url)
+    analysis = cv_client.analyze_image_in_stream(image , features)
 
     # Get image description
     for caption in analysis.description.captions:
         print("Description: '{}' (confidence: {:.2f}%)".format(caption.text, caption.confidence * 100))
+        return (caption.text, (caption.confidence * 100))
 
 
 def GetThumbnail(image_file):
@@ -66,6 +41,3 @@ def GetThumbnail(image_file):
 
     # Generate a thumbnail
 
-
-if __name__ == "__main__":
-    main()

@@ -7,6 +7,16 @@
     <title>Home</title>
 </head>
 <body>
-    <p>Hello django</p>
+    {% for r in response %}
+        <p>{{ r }}</p>
+    {% empty %}
+        <p>Hello Jean-Marie</p>
+        <p></p>
+        <form enctype="multipart/form-data" action="{% url 'home' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">envoyer</button>
+        </form>
+    {% endfor %}
 </body>
 </html>
