@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="container-md container-fluid my-5">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{% url 'home' %}" method="post" enctype="multipart/form-data" id="id-form">
             {% csrf_token %}
             <div class="row my-3">
                 <div class="col-8 offset-2">

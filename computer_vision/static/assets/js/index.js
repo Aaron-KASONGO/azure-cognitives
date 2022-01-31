@@ -25,4 +25,25 @@ $(document).ready(function() {
     $('#accordion-button1').click(function(event) {
       event.preventDefault();
     })
+
+    $('#id-form').submit(function(e) {
+      e.preventDefault(); // prevent form submit
+
+      let form = $(this);
+
+      $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      });
+
+      $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function(response) {
+          console.log(response.description);
+        }
+      })
+    })
 })

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from msrest.authentication import CognitiveServicesCredentials
 from .img_vision import AnalyzeImage
@@ -25,12 +26,16 @@ def home(request):
 
                 # Analyze image
                 response = AnalyzeImage(img_file, cv_client)
+                clean_response = {
+                    'description': response[0],
+                    'confidence': response[1]
+                }
 
 
 
             except Exception as ex:
                 print(ex)
-            return redirect('home')
+            return JsonResponse(clean_response)
         else:
             return render(request, 'computer_vision/home.html', {'response': response, 'form': form})
     else:
