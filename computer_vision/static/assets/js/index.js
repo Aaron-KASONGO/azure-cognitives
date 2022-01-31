@@ -27,23 +27,27 @@ $(document).ready(function() {
     })
 
     $('#id-form').submit(function(e) {
-      e.preventDefault(); // prevent form submit
+        e.preventDefault(); // prevent form submit
 
-      let form = $(this);
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        let form = $(this);
+        let formData = new FormData(form.get(0));
 
-      $.ajaxSetup({
-        beforeSend: function (xhr, settings) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-      });
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        });
 
-      $.ajax({
-        type: form.attr('method'),
-        url: form.attr('action'),
-        data: form.serialize(),
-        success: function(response) {
-          console.log(response.description);
-        }
-      })
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+              console.log(response.description);
+            }
+        })
     })
 })

@@ -15,6 +15,7 @@ def home(request):
         print(form)
         if form.is_valid():
             img_file = form.save()
+            print("yes !")
             try:
                 # Get Configuration Settings
                 cog_endpoint = 'https://visio-ordinateur.cognitiveservices.azure.com/'
