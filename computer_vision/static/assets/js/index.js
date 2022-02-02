@@ -47,6 +47,8 @@ $(document).ready(function() {
             contentType: false,
             success: function(response) {
               console.log(response.description);
+              $('#col-text').removeClass('d-none');
+              $('#accordion-body').append(`<span>${response.description}</span>`);
             }
         })
     })
