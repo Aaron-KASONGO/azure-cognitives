@@ -6,7 +6,7 @@ TEMPLATE_DEBUG = False
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-##INSTALLED_APPS += ['whitenoise.runserver_nostatic']
+#INSTALLED_APPS += ['whitenoise.runserver_nostatic']
 
 WHITENOISE_USE_FINDERS = True
 
