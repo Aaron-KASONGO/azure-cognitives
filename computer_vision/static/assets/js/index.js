@@ -12,7 +12,7 @@ $(document).ready(function() {
 
             if (!($('#col-text').hasClass('d-none'))) {
               $('#col-text').addClass('d-none');
-              $('#accordion-body').remove('span');
+              $('#accordion-body').empty();
             }
           }
           reader.readAsDataURL(file);
