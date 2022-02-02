@@ -9,6 +9,11 @@ $(document).ready(function() {
             $('#id-image').attr('src', event.target.result);
             $('#ig-image').attr('src', event.target.result);
             $('#id-div').removeClass('d-none');
+
+            if (!($('#col-text').hasClass('d-none'))) {
+              $('#col-text').addClass('d-none');
+              $('#accordion-body').remove('span');
+            }
           }
           reader.readAsDataURL(file);
         }
