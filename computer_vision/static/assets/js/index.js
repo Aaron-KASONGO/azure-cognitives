@@ -75,7 +75,7 @@ $(document).ready(function() {
                     $('#id-photo').append(
                       `<div class="col-12 col-md-6 col-lg-3">
                           <div class="card">
-                              <img src="${phot[i].src.original}" alt="${phot[i].src.alt}" class="card-img img-card-size">
+                              <img src="${phot[i].src.landscape}" alt="${phot[i].src.alt}" class="card-img img-card-size">
                           </div>
                       </div>`
                     )
