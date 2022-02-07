@@ -10,6 +10,8 @@ $(document).ready(function() {
             $('#ig-image').attr('src', event.target.result);
             $('#id-div').removeClass('d-none');
             $('#btn-submit').removeClass('disabled');
+            $('#id-photos').addClass('d-none');
+            $('#id-photo').empty();
 
             if (!($('#col-text').hasClass('d-none'))) {
               $('#col-text').addClass('d-none');
@@ -58,19 +60,28 @@ $(document).ready(function() {
             processData: false,
             contentType: false,
             success: function(response) {
-              console.log(response.description);
               button.text('valider');
               $('#col-text').removeClass('d-none');
               $('#accordion-body').append(`<span>${response.description}</span>`);
               
-              // $.ajax({
-              //   type: 'post',
-              //   url: '/photos/',
-              //   data: response.description,
-              //   success: function(photos) {
-              //     $()
-              //   }
-              // })
+              $.ajax({
+                type: 'post',
+                url: '/photos/',
+                data: {'description': response.description},
+                success: function(photos) {
+                  let phot = photos.photos;
+                  $('#id-photos').removeClass('d-none');
+                  for (let i = 0; i < phot.length; i++) {
+                    $('#id-photo').append(
+                      `<div class="col-12 col-md-6 col-lg-3">
+                          <div class="card">
+                              <img src="${phot[i].src.original}" alt="${phot[i].src.alt}" class="card-img img-card-size">
+                          </div>
+                      </div>`
+                    )
+                  }
+                }
+              })
             }
         })
     })

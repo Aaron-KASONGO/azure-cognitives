@@ -5,6 +5,7 @@ from msrest.authentication import CognitiveServicesCredentials
 from .img_vision import AnalyzeImage
 from .models import Image
 from .forms import ImageForm
+import requests
 
 
 # Create your views here.
@@ -43,3 +44,18 @@ def home(request):
         form = ImageForm()
 
     return render(request, 'computer_vision/home.html', {'response': response, 'form': form})
+
+
+def render_photos(request):
+    header = {
+    'Authorization': '563492ad6f91700001000001c959058dc8ca4413bc19eb282d822f20'
+    }
+
+    params = {
+        'query': request.POST['description'],
+        'size': 'small'
+    }
+
+    response = requests.get('https://api.pexels.com/v1/search', headers=header, params=params)
+    photos = response.json()['photos']
+    return JsonResponse({'photos': photos})
