@@ -41,6 +41,7 @@ $(document).ready(function() {
         let button = $('#btn-submit');
 
         button.addClass('disabled');
+        $('#id-button').addClass('disabled');
         button.html(spinner);
 
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -62,6 +63,7 @@ $(document).ready(function() {
             success: function(response) {
               button.text('valider');
               $('#col-text').removeClass('d-none');
+              $('#id-button').removeClass('disabled');
               $('#accordion-body').append(`<span>${response.description}</span>`);
               
               $.ajax({
