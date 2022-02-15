@@ -1,25 +1,40 @@
 $(document).ready(function() {
     $('#id_img').change(function(){
-        const file = this.files[0];
-        console.log(file);
-        if (file){
-          let reader = new FileReader();
-
-          reader.onload = function(event){
-            $('#id-image').attr('src', event.target.result);
-            $('#ig-image').attr('src', event.target.result);
-            $('#id-div').removeClass('d-none');
-            $('#btn-submit').removeClass('disabled');
-            $('#id-photos').addClass('d-none');
-            $('#id-photo').empty();
-
-            if (!($('#col-text').hasClass('d-none'))) {
-              $('#col-text').addClass('d-none');
-              $('#accordion-body').empty();
+        const f = this.files[0];
+        console.log(this.files[0]);
+        
+        imageConversion.compressAccurately(f,200).then(res=>{
+          //The res in the promise is a compressed Blob type (which can be treated as a File type) file;
+          console.log(res);
+          const file = new File([res], "image.jpeg", {
+            type: res.type,
+          });
+          console.log(file);
+          this.files[0] = file;
+          console.log(this.files[0]);
+          if (file){
+            let reader = new FileReader();
+  
+            reader.onload = function(event){
+              // img_quality = 80;
+              // output_format = 'jpg';
+              // let img = jic.compress(event.target.result, img_quality, output_format);
+              // console.log(img);
+              $('#id-image').attr('src', event.target.result);
+              $('#id-div').removeClass('d-none');
+              $('#btn-submit').removeClass('disabled');
+              $('#id-photos').addClass('d-none');
+              $('#id-photo').empty();
+  
+              if (!($('#col-text').hasClass('d-none'))) {
+                $('#col-text').addClass('d-none');
+                $('#accordion-body').empty();
+              }
             }
+            reader.readAsDataURL(file);
           }
-          reader.readAsDataURL(file);
-        }
+        })
+
     })
 
     $('#id-button').click(function() {

@@ -1,8 +1,4 @@
-import os
-from array import array
-from PIL import Image, ImageDraw
-import sys
-import time
+import requests
 from PIL import Image
 import urllib
 
@@ -33,11 +29,43 @@ def AnalyzeImage(image_file, cv_client):
     # Get image description
     for caption in analysis.description.captions:
         print("Description: '{}' (confidence: {:.2f}%)".format(caption.text, caption.confidence * 100))
-        return (caption.text, (caption.confidence * 100))
+        return (Translate(caption.text), (caption.confidence * 100))
 
 
-def GetThumbnail(image_file):
-    print('Generating thumbnail')
+def Translate(text, source_language='en'):
+    translation = ''
 
-    # Generate a thumbnail
+    # Use the Translator translate function
+    path = '/translate'
+    url = 'https://api.cognitive.microsofttranslator.com' + path
+
+    # Build the request
+    params = {
+        'api-version': '3.0',
+        'from': source_language,
+        'to': ['fr']
+    }
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': 'c26e4b10267b4ae08c7ba3e9e06bde40',
+        'Ocp-Apim-Subscription-Region': 'southafricanorth',
+        'Content-type': 'application/json'
+    }
+
+    body = [{
+        'text': text
+    }]
+
+    # Send the request and get response
+    request = requests.post(url, params=params, headers=headers, json=body)
+    response = request.json()
+
+    # Parse JSON array and get translation
+    translation = response[0]["translations"][0]["text"]
+
+
+
+    # Return the translation
+    return translation
+
 

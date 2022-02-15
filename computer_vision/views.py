@@ -30,7 +30,7 @@ def home(request):
                 response = AnalyzeImage(img_file, cv_client)
                 clean_response = {
                     'description': response[0],
-                    'confidence': response[1]
+                    'confidence': f'{response[1]:.0f}'
                 }
 
 
