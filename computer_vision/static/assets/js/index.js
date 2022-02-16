@@ -84,15 +84,15 @@ $(document).ready(function() {
               $.ajax({
                 type: 'post',
                 url: '/photos/',
-                data: {'description': response.description},
+                data: {'description': response.description_en},
                 success: function(photos) {
                   let phot = photos.photos;
                   $('#id-photos').removeClass('d-none');
                   for (let i = 0; i < phot.length; i++) {
                     $('#id-photo').append(
-                      `<div class="col-12 col-md-6 col-lg-3">
-                          <div class="card">
-                              <img src="${phot[i].src.landscape}" alt="${phot[i].alt}" class="card-img img-card-size">
+                      `<div class="col-12 col-sm-6 col-md-4 col-lg-3 d-inline mx-auto">
+                          <div class="card d-inline">
+                              <img src="${phot[i].src.landscape}" alt="${phot[i].alt}" class="card-img img-card-size d-inline">
                           </div>
                       </div>`
                     )

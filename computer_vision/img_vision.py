@@ -29,7 +29,7 @@ def AnalyzeImage(image_file, cv_client):
     # Get image description
     for caption in analysis.description.captions:
         print("Description: '{}' (confidence: {:.2f}%)".format(caption.text, caption.confidence * 100))
-        return (Translate(caption.text), (caption.confidence * 100))
+        return (Translate(caption.text), caption.text, (caption.confidence * 100))
 
 
 def Translate(text, source_language='en'):
