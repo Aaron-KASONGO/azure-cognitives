@@ -19,8 +19,8 @@ def home(request):
             print("yes !")
             try:
                 # Get Configuration Settings
-                cog_endpoint = 'https://visio-ordinateur.cognitiveservices.azure.com/'
-                cog_key = 'ffef1398c11042fda74569f1fb737685'
+                cog_endpoint = 'https://cognitivezer-app.cognitiveservices.azure.com/'
+                cog_key = 'cdca68c2a0ee44a8bb0835fd0ce93488'
 
                 # Authenticate Computer Vision client
                 credential = CognitiveServicesCredentials(cog_key) 

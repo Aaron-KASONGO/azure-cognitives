@@ -37,7 +37,7 @@ def Translate(text, source_language='en'):
 
     # Use the Translator translate function
     path = '/translate'
-    url = 'https://api.cognitive.microsofttranslator.com' + path
+    url = 'https://api.cognitive.microsofttranslator.com/' + path
 
     # Build the request
     params = {
@@ -47,8 +47,8 @@ def Translate(text, source_language='en'):
     }
 
     headers = {
-        'Ocp-Apim-Subscription-Key': 'c26e4b10267b4ae08c7ba3e9e06bde40',
-        'Ocp-Apim-Subscription-Region': 'southafricanorth',
+        'Ocp-Apim-Subscription-Key': '52296b6be5a64b6ca4eaa9dea8450769',
+        'Ocp-Apim-Subscription-Region': 'southcentralus',
         'Content-type': 'application/json'
     }
 
